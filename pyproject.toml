@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "delivery-service"
+version = "0.1.0"
+description = ""
+authors = ["Alex <es01@bk.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
