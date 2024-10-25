@@ -1,0 +1,42 @@
+services:
+  app:
+    build: .
+    command: uvicorn src.app.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - delivery_db
+      - redis
+    env_file:
+        - .env
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+
+  delivery_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  test_delivery_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${TEST_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${TEST_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${TEST_POSTGRES_DB}
+    ports:
+      - "5433:5432"
+    volumes:
+      - test_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+  test_postgres_data:
