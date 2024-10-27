@@ -1,34 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="62390f51-2c26-481d-aa49-c1acd66ebd3e" name="Changes" comment="" />
+    <list default="true" id="62390f51-2c26-481d-aa49-c1acd66ebd3e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/alembic.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/alembic/README" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/alembic/env.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/alembic/script.py.mako" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/alembic/versions/600ca47fa8c3_initial_migration.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/repositories/exchange_rate_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/repositories/user_session_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Delivery_service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Delivery_service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.toml" beforeDir="false" afterPath="$PROJECT_DIR$/settings.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/api/v1/routes/parcels.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/v1/routes/parcels.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/db/init_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/db/init_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/db/redis_session.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/db/redis_session.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/models/parcel_delivery.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/models/parcel_delivery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/models/parcel_type.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/models/parcel_type.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/models/parcels.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/models/parcels.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/models/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/models/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/models/user_parcel.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/models/user_parcel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/repositories/parcel_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/repositories/parcel_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/schemas/parcel.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/schemas/parcel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/currency_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/currency_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/parcel_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/parcel_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/services/user_session_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/user_session_service.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Molochko1990&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Molochko1990/delivery_service.git&quot;,
+    &quot;accountId&quot;: &quot;8edceec4-7521-42f7-bdf0-dcdc0a6b4044&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2nEMRwSr5ANoj6U6oOiZHlVHfDg" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python tests.Python tests in test_redis.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.currency_service.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;9fe3d889&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/molochko/PycharmProjects/for_tests&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/docker" />
+      <recent name="$PROJECT_DIR$/src/app/schemas" />
+      <recent name="$PROJECT_DIR$/src/app/models" />
+      <recent name="$PROJECT_DIR$/src/app/db" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-98f27166c754-ba05f1cad1b1-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.21829.153" />
+        <option value="bundled-python-sdk-d7ad00fb9fc3-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.23726.102" />
       </set>
     </attachedChunks>
   </component>
@@ -42,5 +119,16 @@
       <updated>1728533777226</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

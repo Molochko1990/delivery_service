@@ -1,9 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import relationship
 
-from src.app.db.session import Base
-from src.app.schemas.parcel_type import ParcelType
-from src.app.schemas.parcel_delivery import ParcelDelivery
+from src.app.db.postge_session import Base
 
 
 class Parcels(Base):
@@ -13,8 +11,9 @@ class Parcels(Base):
     name = Column(String)
     weight = Column(Float)
     type_id = Column(Integer, ForeignKey('parcel_type.id'))
-    content_value = Column(Float)
+    content_cost = Column(Float)
     delivery_cost = Column(Float)
+    session_id = Column(String, index=True)
 
     parcel_type = relationship("ParcelType", back_populates="parcels")
     delivery = relationship("ParcelDelivery", back_populates="parcel")

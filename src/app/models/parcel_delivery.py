@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey, Float
 from sqlalchemy.orm import relationship
-from src.app.db.session import Base
+from src.app.db.postge_session import Base
 
 
 class ParcelDelivery(Base):

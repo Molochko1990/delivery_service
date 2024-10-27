@@ -1,0 +1,20 @@
+# Poetry-specific
+.poetry/
+
+# VS Code
+.vscode/
+
+# Python
+*.py[cod]
+__pycache__
+*.so
+
+# Virtual Environments
+venv/
+.env
+
+# Testing/Development artifacts
+.idea/
+*.log
+.tox/
+.coverage
