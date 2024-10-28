@@ -37,6 +37,22 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+
+
+  worker:
+    build: .
+    command: sh -c "PYTHONPATH=/app poetry run python src/app/utils/parcel_worker.py"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    deploy:
+      replicas: 1
 
 #  test_delivery_db:
 #    image: postgres:latest
