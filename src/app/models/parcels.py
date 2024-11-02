@@ -8,6 +8,7 @@ class Parcels(Base):
     __tablename__ = "parcels"
 
     id = Column(Integer, primary_key=True, index=True)
+    parcel_id = Column(String, nullable=False)
     name = Column(String)
     weight = Column(Float)
     type_id = Column(Integer, ForeignKey('parcel_type.id'))
@@ -16,4 +17,3 @@ class Parcels(Base):
     session_id = Column(String, index=True)
 
     parcel_type = relationship("ParcelType", back_populates="parcels")
-    delivery = relationship("ParcelDelivery", back_populates="parcel")

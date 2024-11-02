@@ -1,6 +1,8 @@
 import logging
+import uuid
 
 from fastapi import Depends, HTTPException
+from sqlalchemy.exc import NoResultFound
 
 from src.app.schemas.parcel import ParcelCreate, ParcelResponse
 from src.app.repositories.parcel_repository import ParcelRepository
@@ -16,39 +18,54 @@ class ParcelService:
     async def register_parcel(self, parcel: ParcelCreate, session_id) -> ParcelResponse:
         try:
             logging.info(f"Registering parcel with data: {parcel}")
-            delivery_cost = parcel.weight * 10
+            try:
+                package_id = str(uuid.uuid4())
 
-            parcel_data = {
-                'name': parcel.name,
-                'weight': parcel.weight,
-                'type_id': parcel.type_id,
-                'content_cost': parcel.content_cost,
-                'delivery_cost': delivery_cost,
-                'session_id': session_id
-            }
+                parcel_data = {
+                    'parcel_id': package_id,
+                    'name': parcel.name,
+                    'weight': parcel.weight,
+                    'type_id': parcel.type_id,
+                    'content_cost': parcel.content_cost,
+                    'session_id': session_id
+                }
 
-            db_parcel = await self.parcel_repo.create_parcel(parcel, delivery_cost, session_id)
-            parcel_data['id'] = db_parcel.id
+                await send_message_to_queue(parcel_data)
 
-            await send_message_to_queue(parcel_data)
+            except Exception as e:
+                logging.error(f"Error sending message to queue: {e}")
+                raise HTTPException(status_code=500, detail="Failed to process parcel registration")
 
-            return ParcelResponse(id=db_parcel.id)
+            return ParcelResponse(parcel_id=package_id)
 
+
+        except ConnectionError as e:
+            logging.error(f"Connection error while registering parcel: {e}")
+            raise HTTPException(status_code=503, detail="Service unavailable, please try again later")
         except Exception as e:
-            logging.error(f"Error registering parcel: {e}")
+            logging.error(f"Unexpected error while registering parcel: {e}")
             raise HTTPException(status_code=500, detail="Internal Server Error")
-        # return ParcelResponse(id=None)
-        ##############################################################
-        # delivery_cost = parcel.weight * 10
-        # db_parcel = await self.parcel_repo.create_parcel(parcel, delivery_cost, session_id)
-        #
-        # return ParcelResponse(id=db_parcel.id)
+
 
     async def get_all_parcel_types(self):
-        return await self.parcel_repo.get_all_parcel_types()
+        try:
+            return await self.parcel_repo.get_all_parcel_types()
+        except Exception as e:
+            logging.error(f"Error fetching parcel types: {e}")
+            raise HTTPException(status_code=500, detail="Could not fetch parcel types")
 
     async def get_parcel_info_by_id(self, parcel_id):
-        return await self.parcel_repo.get_parcel_info_by_id(parcel_id)
+        try:
+            return await self.parcel_repo.get_parcel_info_by_id(parcel_id)
+        except NoResultFound:
+            raise HTTPException(status_code=404, detail="Parcel not found")
+        except Exception as e:
+            logging.error(f"Error fetching parcel info for ID {parcel_id}: {e}")
+            raise HTTPException(status_code=500, detail="Internal Server Error")
 
     async def get_user_parcels(self, session_data: str):
-        return await self.parcel_repo.get_user_parcels(session_data)
+        try:
+            return await self.parcel_repo.get_user_parcels(session_data)
+        except Exception as e:
+            logging.error(f"Error fetching user parcels: {e}")
+            raise HTTPException(status_code=500, detail="Internal Server Error")

@@ -17,6 +17,7 @@ redis = "^5.1.1"
 alembic = "^1.13.3"
 requests = "^2.32.3"
 aio-pika = "^9.4.3"
+logging = "^0.4.9.6"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.3"

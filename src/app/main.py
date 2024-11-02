@@ -8,7 +8,12 @@ from src.app.api.v1.routes import parcels
 from src.app.db.init_data import init_parcel_types
 from src.app.services.user_session_service import create_session, extend_session, get_session_data, session_exists
 from src.app.db.redis_session import redis_client
+from src.app.utils.logging_config import LOGGING_CONFIG
+import logging
 
+
+logging.config.dictConfig(LOGGING_CONFIG)
+logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -25,10 +30,10 @@ app = FastAPI(lifespan=lifespan)
 
 @app.get("/")
 def read_root():
+    logger.info('Root endpoint accessed')
     return {"message": "Welcome to the Pochta Rossii API"}
 
 app.include_router(parcels.router, prefix="/parcels", tags=["parcels"])
-# app.include_router(bookings.router, prefix="/bookings", tags=["bookings"])
 
 @app.get("/healthcheck")
 def healthcheck(db: Session = Depends(get_db)):
