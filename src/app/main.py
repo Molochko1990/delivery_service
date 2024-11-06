@@ -33,7 +33,7 @@ def read_root():
     logger.info('Root endpoint accessed')
     return {"message": "Welcome to the Pochta Rossii API"}
 
-app.include_router(parcels.router, prefix="/parcels", tags=["parcels"])
+app.include_router(parcels.router, prefix="/api/v1/parcels", tags=["parcels"])
 
 @app.get("/healthcheck")
 def healthcheck(db: Session = Depends(get_db)):
@@ -50,15 +50,16 @@ async def manage_session(request: Request, call_next):
 
     if session_id and await session_exists(session_id):
         await extend_session(session_id)
-        response = await call_next(request)
     else:
         session_id = str(uuid4())
         initial_session_data = "Initial session data"
         await create_session(session_id, initial_session_data)
-        response = Response("Session established", status_code=200)
-        response.set_cookie(key="session_id", value=session_id)
+
+    response = await call_next(request)
+    response.set_cookie(key="session_id", value=session_id)
 
     return response
+
 
 
 @app.get("/example")
@@ -73,10 +74,10 @@ async def example_endpoint(request: Request):
 
     return {"session_id": session_id, "session_data": session_data}
 
-def create_tables():
-    Base.metadata.drop_all(bind=engine)
-    Base.metadata.create_all(bind=engine)
-
-
-if __name__ == "__main__":
-    create_tables()
+# def create_tables():
+#     Base.metadata.drop_all(bind=engine)
+#     Base.metadata.create_all(bind=engine)
+#
+#
+# if __name__ == "__main__":
+#     create_tables()

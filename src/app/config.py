@@ -1,17 +1,17 @@
 from dynaconf import Dynaconf
 
-
 settings = Dynaconf(
     settings_files=["settings.toml"],
-    envvar_prefix=False,  # префикс для переменных окружения
+    envvar_prefix=False,
+    environments=True
 )
-
 
 class Config:
     def __init__(self):
-        self.DATABASE_URL = settings.DEFAULT.DATABASE_URL
-        self.REDIS_HOST = settings.DEFAULT.REDIS_HOST
-        self.REDIS_PORT = settings.DEFAULT.REDIS_PORT
+        env = settings.get("DEFAULT", "TEST")
+        self.DATABASE_URL = settings[env].DATABASE_URL
+        self.REDIS_HOST = settings[env].REDIS_HOST
+        self.REDIS_PORT = settings[env].REDIS_PORT
 
 def get_config():
     return Config()

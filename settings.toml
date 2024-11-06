@@ -10,6 +10,6 @@ REDIS_PORT = 6379
 POSTGRES_USER = "sasha"
 POSTGRES_PASSWORD = "sasha123"
 POSTGRES_DB = "test_delivery_db"
-DATABASE_URL = "postgresql+asyncpg://sasha:sasha123@test_delivery_db:5432/test_delivery_db"
+DATABASE_URL = "postgresql+asyncpg://sasha:sasha123@test_delivery_db:5432/test_db"
 REDIS_HOST = "redis"
 REDIS_PORT = 6379

@@ -5,20 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62390f51-2c26-481d-aa49-c1acd66ebd3e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/utils/logging_config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pytest.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/conftest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/tests/test_parcels.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/poetry.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.toml" beforeDir="false" afterPath="$PROJECT_DIR$/settings.toml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/api/v1/routes/parcels.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/v1/routes/parcels.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/models/parcel_delivery.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/models/parcels.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/models/parcels.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/models/user.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/models/user_parcel.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/repositories/parcel_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/repositories/parcel_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/schemas/parcel.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/schemas/parcel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/services/parcel_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/services/parcel_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/utils/parcel_worker.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/utils/parcel_worker.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,8 +68,8 @@
     &quot;Python tests.Python tests in test_redis.py.executor&quot;: &quot;Run&quot;,
     &quot;Python.currency_service.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;b8c1d502&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/molochko/PycharmProjects/algorithms_and_complexity_analysis&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;0f34a0b1&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/molochko/PycharmProjects/Delivery_service&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;
   }
 }</component>

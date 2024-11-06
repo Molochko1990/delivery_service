@@ -54,14 +54,29 @@ services:
     deploy:
       replicas: 1
 
-#  test_delivery_db:
-#    image: postgres:latest
-#    environment:
-#      POSTGRES_DB: ${TEST_POSTGRES_DB}
-#    ports:
-#      - "5433:5432"
-#    volumes:
-#      - test_postgres_data:/var/lib/postgresql/data
+  test_delivery_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${TEST_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${TEST_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${TEST_POSTGRES_DB}
+    ports:
+      - "5433:5432"
+    volumes:
+      - test_postgres_data:/var/lib/postgresql/data
+
+  test_runner:
+    build: .
+    command: sh -c "PYTHONPATH=/app pytest src/tests/"
+    depends_on:
+      - test_delivery_db
+      - redis
+      - rabbitmq
+    env_file:
+      - .env
+    environment:
+      - DYNACONF_ENV=TEST
+
 
 volumes:
   postgres_data:

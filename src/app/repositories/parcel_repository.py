@@ -2,7 +2,7 @@ import logging
 
 from fastapi import Depends
 from sqlalchemy import select
-from sqlalchemy.exc import NoResultFound
+from sqlalchemy.exc import NoResultFound, SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
 
@@ -14,6 +14,7 @@ from src.app.db.redis_session import redis_client
 from redis.asyncio import Redis
 
 
+logger = logging.getLogger(__name__)
 
 
 class ParcelRepository:
@@ -41,9 +42,13 @@ class ParcelRepository:
             raise
 
     async def get_all_parcel_types(self):
-        query_result = await self.db.execute(select(ParcelType))
-        parcel_type = query_result.scalars().all()
-        return parcel_type
+        try:
+            query_result = await self.db.execute(select(ParcelType))
+            parcel_types = query_result.scalars().all()
+            return parcel_types
+        except SQLAlchemyError as e:
+            logger.error(f"Error fetching parcel types: {str(e)}")
+            raise
 
     async def get_parcel_info_by_id(self, parcel_id):
         query = select(Parcels).options(joinedload(Parcels.parcel_type)).where(Parcels.parcel_id == parcel_id)
