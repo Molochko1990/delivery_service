@@ -6,7 +6,13 @@ from src.app.config import get_config
 config = get_config()
 DATABASE_URL = config.DATABASE_URL
 
-engine = create_async_engine(DATABASE_URL, echo=True)
+engine = create_async_engine(
+    DATABASE_URL,
+    echo=True,
+    pool_size=5,
+    max_overflow=10,
+    pool_timeout=30,
+)
 
 AsyncSessionLocal = sessionmaker(
     bind=engine,

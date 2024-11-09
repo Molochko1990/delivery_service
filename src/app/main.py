@@ -1,6 +1,6 @@
 from contextlib import asynccontextmanager
 from uuid import uuid4
-from fastapi import FastAPI, Depends, Request, Response
+from fastapi import FastAPI, Depends, Request, Response, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.sql import text
 from src.app.db.postge_session import get_db, engine, Base, AsyncSessionLocal
@@ -8,12 +8,16 @@ from src.app.api.v1.routes import parcels
 from src.app.db.init_data import init_parcel_types
 from src.app.services.user_session_service import create_session, extend_session, get_session_data, session_exists
 from src.app.db.redis_session import redis_client
-from src.app.utils.logging_config import LOGGING_CONFIG
-import logging
+from src.app.utils.logging_config import logger
+from src.app.error_handlers import (
+    http_exception_handler,
+    parcel_not_found_exception_handler,
+    unauthorized_exception_handler,
+    generic_exception_handler,
+)
+from src.app.exceptions import ParcelNotFoundException, UnauthorizedException
 
 
-logging.config.dictConfig(LOGGING_CONFIG)
-logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -35,13 +39,11 @@ def read_root():
 
 app.include_router(parcels.router, prefix="/api/v1/parcels", tags=["parcels"])
 
-@app.get("/healthcheck")
-def healthcheck(db: Session = Depends(get_db)):
-    try:
-        db.execute(text('SELECT 1'))
-        return {"status": "ok"}
-    except Exception as e:
-        return {"status": "error", "details": str(e)}
+app.add_exception_handler(HTTPException, http_exception_handler)
+app.add_exception_handler(ParcelNotFoundException, parcel_not_found_exception_handler)
+app.add_exception_handler(UnauthorizedException, unauthorized_exception_handler)
+app.add_exception_handler(Exception, generic_exception_handler)
+
 
 
 @app.middleware("http")
@@ -62,17 +64,41 @@ async def manage_session(request: Request, call_next):
 
 
 
-@app.get("/example")
-async def example_endpoint(request: Request):
-    session_id = request.cookies.get("session_id")
-    if session_id:
-        session_data = await get_session_data(session_id)
-        if not session_data:
-            session_data = "No data found for this session."
-    else:
-        session_data = "No session ID found."
 
-    return {"session_id": session_id, "session_data": session_data}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# @app.get("/example")
+# async def example_endpoint(request: Request):
+#     session_id = request.cookies.get("session_id")
+#     if session_id:
+#         session_data = await get_session_data(session_id)
+#         if not session_data:
+#             session_data = "No data found for this session."
+#     else:
+#         session_data = "No session ID found."
+#
+#     return {"session_id": session_id, "session_data": session_data}
+
+
+# @app.get("/healthcheck")
+# def healthcheck(db: Session = Depends(get_db)):
+#     try:
+#         db.execute(text('SELECT 1'))
+#         return {"status": "ok"}
+#     except Exception as e:
+#         return {"status": "error", "details": str(e)}
 
 # def create_tables():
 #     Base.metadata.drop_all(bind=engine)

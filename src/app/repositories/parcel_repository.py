@@ -1,5 +1,3 @@
-import logging
-
 from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.exc import NoResultFound, SQLAlchemyError
@@ -12,9 +10,8 @@ from src.app.models.parcels import Parcels
 from src.app.models.parcel_type import ParcelType
 from src.app.db.redis_session import redis_client
 from redis.asyncio import Redis
+from src.app.utils.logging_config import logger
 
-
-logger = logging.getLogger(__name__)
 
 
 class ParcelRepository:
@@ -37,7 +34,7 @@ class ParcelRepository:
             await self.db.refresh(db_parcel)
             return db_parcel
         except Exception as e:
-            logging.error(f"Error creating parcel: {e}")
+            logger.error(f"Error creating parcel: {e}")
             await self.db.rollback()
             raise
 

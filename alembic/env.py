@@ -5,6 +5,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
+from dynaconf import settings
 
 # from src.app.db.postge_session import Base
 
@@ -22,6 +23,8 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 target_metadata = None
+database_url = settings.ALEMBIC_DATABASE_URL
+config.set_main_option("sqlalchemy.url", settings.ALEMBIC_DATABASE_URL)
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
