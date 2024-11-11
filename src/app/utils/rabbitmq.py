@@ -2,6 +2,7 @@ import json
 
 import aio_pika
 
+from src.app.utils.logging_config import logger
 
 async def send_message_to_queue(message: dict, queue_name: str = "task_queue"):
     connection = await aio_pika.connect_robust("amqp://guest:guest@rabbitmq/")

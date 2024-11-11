@@ -2,6 +2,7 @@ import uuid
 
 from fastapi import Depends, HTTPException
 from sqlalchemy.exc import NoResultFound
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.app.exceptions import ServiceUnavailableException, ParcelNotFoundException
 from src.app.schemas.parcel import ParcelCreate, ParcelResponse
@@ -39,21 +40,21 @@ class ParcelService:
         return ParcelResponse(parcel_id=package_id)
 
 
-    async def get_all_parcel_types(self):
+    async def get_all_parcel_types(self, db: AsyncSession):
         logger.info("Attempting to fetch all parcel types from the repository")
-        return await self.parcel_repo.get_all_parcel_types()
+        return await self.parcel_repo.get_all_parcel_types(db)
 
-
-    async def get_parcel_info_by_id(self, parcel_id):
+    # УБРАТЬ ВСЕ TRY EXCEPT
+    async def get_parcel_info_by_id(self, parcel_id: str, db: AsyncSession):
         logger.info("Attempting to fetch parcel {%s} from the repository", parcel_id)
         try:
-            parcel = await self.parcel_repo.get_parcel_info_by_id(parcel_id)
+            parcel = await self.parcel_repo.get_parcel_info_by_id(parcel_id, db)
             if not parcel:
                 raise ParcelNotFoundException(f"Parcel with ID {parcel_id} not found")
             return parcel
         except NoResultFound:
             raise ParcelNotFoundException(f"Parcel with ID {parcel_id} not found")
 
-    async def get_user_parcels(self, session_data: str):
+    async def get_user_parcels(self, session_data: str, db: AsyncSession):
         logger.info("Attempting to fetch user parcels from the repository")
-        return await self.parcel_repo.get_user_parcels(session_data)
+        return await self.parcel_repo.get_user_parcels(session_data, db)

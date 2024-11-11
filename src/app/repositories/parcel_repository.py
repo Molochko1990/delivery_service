@@ -15,10 +15,7 @@ from src.app.utils.logging_config import logger
 
 
 class ParcelRepository:
-    def __init__(self, db: AsyncSession = Depends(get_db)):
-        self.db = db
-
-    async def create_parcel(self, parcel: ParcelCreate, delivery_cost: float, session_id: str, parcel_id: str):
+    async def create_parcel(self, parcel: ParcelCreate, delivery_cost: float, session_id: str, parcel_id: str, db: AsyncSession):
         try:
             db_parcel = Parcels(
                 parcel_id=parcel_id,
@@ -29,27 +26,27 @@ class ParcelRepository:
                 delivery_cost=delivery_cost,
                 session_id=session_id
             )
-            self.db.add(db_parcel)
-            await self.db.commit()
-            await self.db.refresh(db_parcel)
+            db.add(db_parcel)
+            await db.commit()
+            await db.refresh(db_parcel)
             return db_parcel
         except Exception as e:
             logger.error(f"Error creating parcel: {e}")
-            await self.db.rollback()
+            await db.rollback()
             raise
 
-    async def get_all_parcel_types(self):
+    async def get_all_parcel_types(self, db: AsyncSession):
         try:
-            query_result = await self.db.execute(select(ParcelType))
+            query_result = await db.execute(select(ParcelType))
             parcel_types = query_result.scalars().all()
             return parcel_types
         except SQLAlchemyError as e:
             logger.error(f"Error fetching parcel types: {str(e)}")
             raise
 
-    async def get_parcel_info_by_id(self, parcel_id):
+    async def get_parcel_info_by_id(self, parcel_id: str, db: AsyncSession):
         query = select(Parcels).options(joinedload(Parcels.parcel_type)).where(Parcels.parcel_id == parcel_id)
-        result = await self.db.execute(query)
+        result = await db.execute(query)
         parcel = result.scalar_one_or_none()
         if parcel is None:
             raise NoResultFound(f"No parcel found with id: {parcel_id}")
@@ -62,13 +59,13 @@ class ParcelRepository:
             )
 
 
-    async def get_user_parcels(self, session_id: str):
+    async def get_user_parcels(self, session_id: str, db: AsyncSession):
         query = (
             select(Parcels)
             .options(joinedload(Parcels.parcel_type))
             .where(Parcels.session_id == session_id)
         )
-        result = await self.db.execute(query)
+        result = await db.execute(query)
         parcels = result.scalars().all()
         return [
             ParcelsDetails(

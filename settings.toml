@@ -11,6 +11,6 @@ ALEMBIC_DATABASE_URL = "postgresql+psycopg2://sasha:sasha123@localhost:5432/deli
 POSTGRES_USER = "sasha"
 POSTGRES_PASSWORD = "sasha123"
 POSTGRES_DB = "test_delivery_db"
-DATABASE_URL = "postgresql+asyncpg://sasha:sasha123@test_delivery_db:5432/test_db"
+DATABASE_URL = "postgresql+asyncpg://sasha:sasha123@test_delivery_db:5432/test_delivery_db"
 REDIS_HOST = "redis"
 REDIS_PORT = 6379

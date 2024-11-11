@@ -25,7 +25,10 @@ async def lifespan(app: FastAPI):
         await conn.run_sync(Base.metadata.create_all)
 
     async with AsyncSessionLocal() as session:
-        await init_parcel_types(session)
+        result = await session.execute(text("SELECT 1 FROM parcel_type LIMIT 1"))
+        if not result.scalar():
+            await init_parcel_types(session)
+            await session.commit()
 
     yield
 

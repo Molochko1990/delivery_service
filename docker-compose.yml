@@ -67,15 +67,16 @@ services:
 
   test_runner:
     build: .
-    command: sh -c "PYTHONPATH=/app pytest src/tests/"
+    command: sh -c "PYTHONPATH=/app pytest -s src/tests/"
     depends_on:
       - test_delivery_db
       - redis
       - rabbitmq
+#      - worker
     env_file:
       - .env
     environment:
-      - DYNACONF_ENV=TEST
+      - DYNACONF_ENV=test
 
 
 volumes:
