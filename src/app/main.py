@@ -35,6 +35,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
+
 @app.get("/")
 def read_root():
     logger.info('Root endpoint accessed')
@@ -53,9 +54,18 @@ app.add_exception_handler(Exception, generic_exception_handler)
 async def manage_session(request: Request, call_next):
     session_id = request.cookies.get("session_id")
 
-    if session_id and await session_exists(session_id):
-        await extend_session(session_id)
+    if session_id:
+        logger.info(f"Existing session ID found: {session_id}")
+        if await session_exists(session_id):
+            logger.info("Session exists, extending session.")
+            await extend_session(session_id)
+        else:
+            logger.info("Session ID does not exist, creating new session.")
+            session_id = str(uuid4())
+            initial_session_data = "Initial session data"
+            await create_session(session_id, initial_session_data)
     else:
+        logger.info("No session ID found, creating new session.")
         session_id = str(uuid4())
         initial_session_data = "Initial session data"
         await create_session(session_id, initial_session_data)

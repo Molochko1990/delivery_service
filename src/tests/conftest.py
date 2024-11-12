@@ -2,8 +2,10 @@ import asyncio
 import os
 import sys
 
+import httpx
 import pytest
 import pytest_asyncio
+
 from fastapi.testclient import TestClient
 from httpx import AsyncClient
 
@@ -53,7 +55,12 @@ async def db_session():
 @pytest_asyncio.fixture(scope="function")
 async def client(db_session):
     app.dependency_overrides[get_db] = lambda: db_session
-    print("Dependency overridden: ", app.dependency_overrides, file=sys.stderr) ################
-    async with AsyncClient(app=app, base_url="http://test") as client:
+    async with httpx.AsyncClient(app=app, base_url="http://test") as client:
         yield client
     app.dependency_overrides.clear()
+
+
+@pytest.fixture
+def mocker():
+    from unittest.mock import Mock
+    return Mock()

@@ -23,6 +23,7 @@ async def register_parcel(
     ):
     logger.info("Parcel registration requested with data: %s", parcel.model_dump())
     session_id = request.cookies.get("session_id")
+    logger.info(session_id)
     registered_parcel = await parcel_service.register_parcel(parcel, session_id)
     return registered_parcel
 
@@ -32,12 +33,12 @@ async def get_all_parcels_types(db: AsyncSession = Depends(get_db), parcel_servi
     return await parcel_service.get_all_parcel_types(db)
 
 
-@router.get("/id/{parcel_id}", response_model=ParcelDetail)
+@router.get("/id/{parcel_id}", response_model=ParcelsDetails)
 async def get_parcel_info_by_id(
         parcel_id: str,
         db: AsyncSession = Depends(get_db),
         parcel_service: ParcelService = Depends()
-        ):
+    ):
     parcel = await parcel_service.get_parcel_info_by_id(parcel_id, db)
     if not parcel:
         raise ParcelNotFoundException(f"Parcel with ID {parcel_id} not found")

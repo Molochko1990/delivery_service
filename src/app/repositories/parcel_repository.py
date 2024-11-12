@@ -26,6 +26,7 @@ class ParcelRepository:
                 delivery_cost=delivery_cost,
                 session_id=session_id
             )
+            logger.info('111111111111111111111111111'+session_id)
             db.add(db_parcel)
             await db.commit()
             await db.refresh(db_parcel)
@@ -50,7 +51,8 @@ class ParcelRepository:
         parcel = result.scalar_one_or_none()
         if parcel is None:
             raise NoResultFound(f"No parcel found with id: {parcel_id}")
-        return ParcelDetail(
+        return ParcelsDetails(
+                parcel_id=parcel.parcel_id,
                 name=parcel.name,
                 weight=parcel.weight,
                 parcel_type_name=parcel.parcel_type.name,

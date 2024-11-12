@@ -27,15 +27,8 @@ class ParcelService:
             'content_cost': parcel.content_cost,
             'session_id': session_id
         }
-
-        try:
-            await send_message_to_queue(parcel_data)
-        except ConnectionError as e:
-            logger.error(f"Connection error while sending message to queue: {e}")
-            raise ServiceUnavailableException("Service unavailable, please try again later")
-        except Exception as e:
-            logger.error(f"Unexpected error while sending message to queue: {e}")
-            raise HTTPException(status_code=500, detail="Failed to process parcel registration")
+        logger.info(parcel_data['session_id'])
+        await send_message_to_queue(parcel_data)
 
         return ParcelResponse(parcel_id=package_id)
 
@@ -44,16 +37,15 @@ class ParcelService:
         logger.info("Attempting to fetch all parcel types from the repository")
         return await self.parcel_repo.get_all_parcel_types(db)
 
-    # УБРАТЬ ВСЕ TRY EXCEPT
+
     async def get_parcel_info_by_id(self, parcel_id: str, db: AsyncSession):
         logger.info("Attempting to fetch parcel {%s} from the repository", parcel_id)
-        try:
-            parcel = await self.parcel_repo.get_parcel_info_by_id(parcel_id, db)
-            if not parcel:
-                raise ParcelNotFoundException(f"Parcel with ID {parcel_id} not found")
-            return parcel
-        except NoResultFound:
+
+        parcel = await self.parcel_repo.get_parcel_info_by_id(parcel_id, db)
+        if not parcel:
             raise ParcelNotFoundException(f"Parcel with ID {parcel_id} not found")
+        return parcel
+
 
     async def get_user_parcels(self, session_data: str, db: AsyncSession):
         logger.info("Attempting to fetch user parcels from the repository")
